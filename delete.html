@@ -1,0 +1,41 @@
+<!doctype html>
+<html>
+
+<head>
+    <script lang="javascript">
+        $(document).on("click", ".del", function () {
+            var post_id = $(this).attr("data");
+            if (confirm("Voulez-vous vraiment supprimer la ligne?")) {
+                $.ajax({
+                    url: "delete.php",
+                    method: "POST",
+                    data: {
+                        post_id: post_id
+                    },
+                    dataType: "json",
+                    success: function (data) {
+                        //alert(data);
+                        if (data.success == true) {
+                            $("#message").html(
+                                '<div class="alert alert-success">Succès</div>'
+                            );
+                        } else {
+                            $("#message").html(
+                                '<div class="alert alert-danger">Erreur</div>'
+                            );
+                        }
+                        ajax.reload();
+                    },
+                });
+            } else {
+                return false;
+            }
+        });
+    </script>
+</head>
+
+<body>
+    <input type="button" class="del">
+</body>
+
+</html>
